@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
-
+use Junges\Kafka\Facades\Kafka;
 class CartController extends Controller
 {
     public function index()
@@ -29,6 +29,12 @@ class CartController extends Controller
                 "image" => $book->image
             ];
         }
+        // $producer = Kafka::publishOn('broker', 'success')
+        //      ->withConfigOption('success', "carts  item with product id $id has been added to cart");
+
+        // $producer->send();
+
+       
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Book has been added to cart!');
     }
